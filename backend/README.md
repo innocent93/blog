@@ -10,6 +10,11 @@ Environment variables (see `.env.example`):
 - `JWT_SECRET` - secret for signing JWTs
 - `PORT` - port to run server
 
+MongoDB URI setup
+
+- Local MongoDB (Compass or local service): use `mongodb://localhost:27017/nobzo-blog`
+- MongoDB Atlas: create a free cluster, add a database user, whitelist your IP, then copy the SRV connection string and set `MONGODB_URI` to it (e.g., `mongodb+srv://<user>:<password>@<cluster>/<db>?retryWrites=true&w=majority`)
+
 Setup
 
 1. Install dependencies:

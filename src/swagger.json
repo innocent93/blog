@@ -1,0 +1,34 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Nobzo Blog API",
+    "version": "1.0.0",
+    "description": "Simple Blog API for the Nobzo technical evaluation"
+  },
+  "servers": [
+    { "url": "http://localhost:3000" }
+  ],
+  "paths": {
+    "/api/auth/register": {
+      "post": {
+        "summary": "Register user",
+        "requestBody": { "required": true },
+        "responses": { "201": { "description": "Created" } }
+      }
+    },
+    "/api/auth/login": {
+      "post": { "summary": "Login user" }
+    },
+    "/api/posts": {
+      "get": { "summary": "List posts" },
+      "post": { "summary": "Create post (auth)" }
+    },
+    "/api/posts/{slug}": {
+      "get": { "summary": "Get post by slug" }
+    },
+    "/api/posts/{id}": {
+      "put": { "summary": "Update post (author)" },
+      "delete": { "summary": "Soft delete post (author)" }
+    }
+  }
+}

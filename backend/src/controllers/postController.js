@@ -5,6 +5,9 @@ const config = require('../config');
 
 async function createPost(req, res, next) {
   try {
+    const { validationResult } = require('express-validator');
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
     const { title, content, tags, status } = req.body;
     const post = new Post({ title, content, tags: tags || [], status: status || 'draft', author: req.user._id });
     await post.save();
@@ -34,7 +37,8 @@ async function listPosts(req, res, next) {
       if (status === 'draft') {
         if (!requesterId) return res.status(401).json({ message: 'Authentication required for draft filter' });
         q.status = 'draft';
-        q.author = mongoose.Types.ObjectId(requesterId);
+        // Avoid invoking ObjectId as a function; let mongoose coerce the string id
+        q.author = requesterId;
       } else if (status === 'published') {
         q.status = 'published';
       }
@@ -80,6 +84,9 @@ async function getPostBySlug(req, res, next) {
 
 async function updatePost(req, res, next) {
   try {
+    const { validationResult } = require('express-validator');
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
     const { id } = req.params;
     if (!mongoose.isValidObjectId(id)) return res.status(400).json({ message: 'Invalid id' });
     const post = await Post.findById(id);

@@ -9,7 +9,7 @@ async function createPost(req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
     const { title, content, tags, status } = req.body;
-    const post = new Post({ title, content, tags: tags || [], status: status || 'draft', author: req.user._id });
+    const post = new Post({ title, content, tags: tags || [], status: status || 'published', author: req.user._id });
     await post.save();
     res.status(201).json(post);
   } catch (err) {

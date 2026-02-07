@@ -6,7 +6,7 @@ const postSchema = new mongoose.Schema({
   slug: { type: String, required: true, unique: true, index: true },
   content: { type: String, required: true },
   author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  status: { type: String, enum: ['draft', 'published'], default: 'draft' },
+  status: { type: String, enum: ['draft', 'published'], default: 'published' },
   tags: [{ type: String }],
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date },
